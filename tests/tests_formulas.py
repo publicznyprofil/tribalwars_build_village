@@ -69,6 +69,3 @@ class TestFormulas(unittest.TestCase):
         self.assertEqual(2, self.formulas.points_for_upgrade('main', 2))
         self.assertEqual(9, self.formulas.points_for_upgrade('main', 10))
         self.assertEqual(49, self.formulas.points_for_upgrade('smith', 16))
-
-if __name__ == '__main__':
-    unittest.main()

@@ -65,7 +65,3 @@ class TestVillage(unittest.TestCase):
         self.assertEqual(self.village.capacity, self.village.wood)
         self.assertEqual(self.village.capacity, self.village.stone)
         self.assertEqual(self.village.capacity, self.village.iron)
-
-
-if __name__ == '__main__':
-    unittest.main()

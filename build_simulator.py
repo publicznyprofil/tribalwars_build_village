@@ -1,5 +1,4 @@
 import datetime
-from collections import Counter
 
 from village import (
     Building,
@@ -36,7 +35,7 @@ class BuildSimulator:
 
             self.template.append(self.next_building.name)
             if self.template.count(self.next_building.name) < self.next_building.level:
-                # already builded when initial Village has this building
+                del self.build_template[0]
                 continue
 
             self.build_time += self.next_building.time(self.village.buildings['main'].level)

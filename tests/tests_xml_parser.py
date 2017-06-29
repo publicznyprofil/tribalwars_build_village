@@ -10,7 +10,3 @@ class TestXmlParser(unittest.TestCase):
 
         for key in ['main', 'wood']:
             self.assertIn(key, dict_)
-
-
-if __name__ == '__main__':
-    unittest.main()

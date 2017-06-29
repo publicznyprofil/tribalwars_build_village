@@ -1,5 +1,7 @@
 import unittest
 
+from mock import mock
+
 from game_config import GameConfig
 
 
@@ -19,6 +21,14 @@ class TestGameConfig(unittest.TestCase):
         for key in keys:
             self.assertIn(key, buildings_config)
 
+    @mock.patch('requests.get', return_value=type('response', (), {'iter_content': lambda x: [b'0123456', b'']}))
+    @mock.patch('game_config.open', mock.mock_open())
+    def test_download_file(self, *args):
+        self.game_config.download_file()
 
-if __name__ == '__main__':
-    unittest.main()
+    def test_get_file_failure(self):
+        self.game_config.download_file = lambda: None
+        with mock.patch('game_config.open', mock.MagicMock(), create=True) as mocked_open:
+            mocked_open.side_effect = FileNotFoundError()
+            self.assertRaises(FileNotFoundError, self.game_config.get_file)
+            self.assertTrue(mocked_open.called)

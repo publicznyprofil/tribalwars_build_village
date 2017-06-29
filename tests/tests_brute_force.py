@@ -63,7 +63,3 @@ class TestBruteForce(unittest.TestCase):
             ],
             list(brute_force.move_every_building_in_every_position())
         )
-
-
-if __name__ == '__main__':
-    unittest.main()

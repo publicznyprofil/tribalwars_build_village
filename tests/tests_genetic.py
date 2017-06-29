@@ -79,7 +79,3 @@ class TestPopulation(unittest.TestCase):
         population = Population(self.buildings_template)
         population.selection()
         self.assertEqual(45, len(population.creatures))
-
-
-if __name__ == '__main__':
-    unittest.main()

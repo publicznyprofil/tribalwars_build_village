@@ -25,8 +25,7 @@ class GameConfig:
         except FileNotFoundError:
             self.download_file()
             file_ = open(self.file_name, 'r')
-        finally:
-            return file_
+        return file_
 
     def download_file(self):
         with open(self.file_name, 'wb') as handle:

@@ -24,6 +24,23 @@ class TestBuildSimulator(unittest.TestCase):
         self.assertEqual(268.83212638428677, build_simulator.need_stone)
         self.assertEqual(224.83212638428674, build_simulator.need_iron)
 
+    def test_generate_build_time_with_high_building_level(self):
+        build_simulator = BuildSimulator(['farm'] * 35)
 
-if __name__ == '__main__':
-    unittest.main()
+        self.assertEqual(build_simulator.template.count('farm'), 30)
+
+    def test_generate_build_time_with_too_small_farm_level(self):
+        build_simulator = BuildSimulator(['main'] * 30)
+
+        self.assertEqual(build_simulator.template.count('farm'), 6)
+
+    def test_generate_build_time_with_already_builded_buildings(self):
+        build_simulator = BuildSimulator(['main', 'main'])
+
+        build_simulator.build_time = 0
+        build_simulator.village.buildings['main'].level = 4
+
+        build_simulator.template = []
+        build_simulator.build_template = ['main', 'main', 'main', 'main']
+        build_simulator.generate_build_time()
+        self.assertEqual(build_simulator.build_time, 0)

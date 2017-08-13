@@ -15,7 +15,7 @@ class BruteForce:
         while True:
             for template in self.template_generator():
                 build_simulator = BuildSimulator(template, **self.build_simulator_kwargs)
-                if build_simulator.build_time < self.build_time:
+                if int(build_simulator.build_time) < int(self.build_time):
                     self.build_time = build_simulator.build_time
                     self.template = build_simulator.template
                     print(
@@ -76,5 +76,5 @@ if __name__ == '__main__':
     resources_for_explore_and_recruit_30_light = (5950, 5400, 9500)
     resources_for_explore_and_recruit_60_light = (9700, 8400, 17000)
     resources_for_explore_and_recruit_150_light = (20950, 17400, 39500)
-    brute_force = BruteForce(template, 'test_brute_output.txt', {'target_resources': resources_for_explore_and_recruit_150_light})
+    brute_force = BruteForce(template, 'test_brute_output.txt')
     brute_force.run()

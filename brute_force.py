@@ -1,3 +1,5 @@
+import datetime
+
 from build_simulator import BuildSimulator
 
 
@@ -68,6 +70,8 @@ class BruteForce:
         with open(self.file_name, 'w') as outfile:
             for building in self.template:
                 outfile.write('{}\n'.format(building))
+        with open('brute_force_log.txt', mode='a') as logfile:
+            logfile.write('{};{}\n'.format(int(self.build_time), datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')))
         print('Saved better template into: {}'.format(self.file_name))
 
 

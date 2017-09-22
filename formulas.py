@@ -8,7 +8,7 @@ class Formulas:
         try:
             self.config = self.cache[world]
         except KeyError:
-            self.cache[world] = GameConfig(world).get_buildings_config()
+            self.cache[world] = GameConfig(world).get_config()
             self.config = self.cache[world]
 
     def build_time(self,  name, main_level, level):
@@ -17,7 +17,7 @@ class Formulas:
         else:
             duration_creation = self.config[name]['build_time'] * 1.18 * self.config[name]['build_time_factor'] ** (level - 1 - 14 / (level - 1))
         actual_build_time = duration_creation * 1.05 ** (-main_level)
-        return actual_build_time
+        return actual_build_time / self.config['speed']
 
     def wood_cost(self, name, level):
         return self.cost(self.config[name]['wood'], self.config[name]['wood_factor'], level)
@@ -50,7 +50,7 @@ class Formulas:
         return round(1000 * 1.2294934 ** (storage_level - 1))
 
     def production_per_hour(self, level_eco):
-        return round(30 * 1.163118 ** (level_eco - 1))
+        return round(30 * 1.163118 ** (level_eco - 1)) * self.config['speed']
 
     def production_per_minut(self, level_eco):
         return self.production_per_hour(level_eco) / 60

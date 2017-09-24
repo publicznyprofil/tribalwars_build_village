@@ -3,6 +3,7 @@ import datetime
 from village import (
     Building,
     Village,
+    ImportedVillage
 )
 
 
@@ -38,10 +39,19 @@ class BuildSimulator:
                 del self.build_template[0]
                 continue
 
+            self.wait_for_resources()
             self.build_time += self.next_building.time(self.village.buildings['main'].level)
             self.village.add_resource(self.next_building.time(self.village.buildings['main'].level))
-            self.wait_for_resources()
             self.village.build(self.next_building)
+            #
+            # print(
+            #     'Build this building {} - {}, This Date: {}, Build time: {}'
+            #     .format(
+            #         self.next_building.name, self.next_building.level,
+            #         self.village.import_time + datetime.timedelta(seconds=self.build_time - self.next_building.time(self.village.buildings['main'].level)),
+            #         self.next_building.time(self.village.buildings['main'].level)
+            #     )
+            # )
 
             if self.next_building.name == building_name:
                 del self.build_template[0]
@@ -112,6 +122,10 @@ if __name__ == '__main__':
     resources_for_explore_and_recruit_60_light = (9700, 8400, 17000)
     resources_for_explore_and_recruit_150_light = (20950, 17400, 39500)
     build_simulator = BuildSimulator(build_template, target_resources=resources_for_explore_and_recruit_30_light)
+
+    # build_template = open('test121.txt').read().split('\n')
+    # build_simulator = BuildSimulator(build_template, village=ImportedVillage('pl121'), world='pl121')
+
     print(
         'This template would be built within {} seconds, Date: {}'
         .format(

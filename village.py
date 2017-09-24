@@ -1,3 +1,6 @@
+import datetime
+import json
+
 from formulas import Formulas
 
 
@@ -115,3 +118,21 @@ class Village:
         self.wood += self.wood_per_second * time
         self.stone += self.iron_per_second * time
         self.iron += self.stone_per_second * time
+
+
+class ImportedVillage(Village):
+    def __init__(self, world):
+        with open('village.json') as _file:
+            self.imported_village, timestamp = json.load(_file)
+        super().__init__(world)
+
+        self.import_time = datetime.datetime.fromtimestamp(float(timestamp / 1000))
+        self._wood, self._stone, self._iron = self.imported_village['wood'], self.imported_village['stone'], self.imported_village['iron']
+        self.population = self.imported_village['pop']
+        self.capacity = self.imported_village['storage_max']
+
+    def get_default_buildings(self, world):
+        return {
+            building_name: Building(world, building_name, int(building_level))
+            for building_name, building_level in self.imported_village['buildings'].items()
+        }

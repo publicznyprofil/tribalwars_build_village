@@ -17,7 +17,7 @@ class Formulas:
         else:
             duration_creation = self.config[name]['build_time'] * 1.18 * self.config[name]['build_time_factor'] ** (level - 1 - 14 / (level - 1))
         actual_build_time = duration_creation * 1.05 ** (-main_level)
-        return actual_build_time / self.config['speed']
+        return actual_build_time
 
     def wood_cost(self, name, level):
         return self.cost(self.config[name]['wood'], self.config[name]['wood_factor'], level)
